@@ -1,0 +1,176 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arshath Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+  /* RESET */
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; scroll-behavior: smooth; }
+  body { background:#f5f6fa; color:#333; transition:0.3s; }
+  body.dark { background:#1e1e2f; color:#f5f6fa; }
+
+  /* ===== NAVBAR ===== */
+  header {
+    position: sticky; top:0; z-index:1000;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:15px 40px; backdrop-filter:blur(10px);
+    background:rgba(17,17,17,0.9); border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  .nav-left { display:flex; align-items:center; gap:15px; }
+  .menu-btn { font-size:1.6rem; background:none; border:none; color:#fff; cursor:pointer; display:none; }
+  .logo { font-size:1.6rem; font-weight:700; color:#00adb5; }
+  nav { display:flex; gap:25px; }
+  nav a { color:#fff; text-decoration:none; font-weight:500; position:relative; transition:0.3s; }
+  nav a::after { content:""; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:#00adb5; transition:width 0.3s; }
+  nav a:hover::after { width:100%; }
+  .toggle-btn { background:#00adb5; border:none; color:#fff; padding:7px 15px; border-radius:6px; cursor:pointer; font-size:0.9rem; transition:0.3s; }
+  .toggle-btn:hover { background:#007a80; }
+
+  /* HERO */
+  .hero { text-align:center; padding:140px 20px; position:relative; background: linear-gradient(135deg, #00adb5, #393e46); color:white; overflow:hidden; }
+  .hero::before { content:""; position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.05); }
+  .hero-content { position:relative; z-index:2; display:inline-block; padding:50px 70px; border-radius:20px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); animation:fadeIn 2s ease; }
+  .hero h2 { font-size:3rem; margin-bottom:15px; letter-spacing:1px; }
+  .hero p { font-size:1.2rem; }
+
+  /* SECTIONS */
+  section { padding:80px 20px; max-width:1100px; margin:auto; opacity:0; transform:translateY(30px); transition:1s; }
+  section.show { opacity:1; transform:translateY(0); }
+  h2 { text-align:center; margin-bottom:40px; color:#00adb5; font-size:2.2rem; }
+
+  /* ABOUT */
+  .about p { text-align:center; max-width:750px; margin:auto; line-height:1.8; font-size:1.1rem; }
+
+  /* SKILLS */
+  .skills { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; }
+  .skills span { display:flex; align-items:center; gap:8px; background:#eee; padding:12px 22px; border-radius:25px; font-weight:600; transition:0.3s; }
+  .skills span:hover { background:#00adb5; color:#fff; transform:scale(1.1); }
+  body.dark .skills span { background:#333; }
+
+  /* PROJECTS */
+  .projects-container { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:25px; }
+  .card { background:rgba(255,255,255,0.9); border-radius:20px; padding:25px; box-shadow:0 10px 30px rgba(0,0,0,0.1); transition:transform 0.3s, box-shadow 0.3s; cursor:pointer; }
+  .card:hover { transform:translateY(-15px) scale(1.05); box-shadow:0 15px 35px rgba(0,0,0,0.2); }
+  body.dark .card { background: #2c2c3c; }
+  .card h3 { margin-bottom:15px; color:#393e46; }
+  .card p { font-size:0.95rem; }
+  .card i { margin-right:8px; color:#00adb5; }
+
+  /* CONTACT */
+  .contact p { text-align:center; font-size:1.1rem; margin:10px 0; }
+
+  /* FOOTER */
+  footer { text-align:center; background:#111; color:white; padding:20px; margin-top:50px; }
+
+  /* FLOATING SOCIAL BUTTONS */
+  .social-float { position:fixed; left:20px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:15px; z-index:1000; }
+  .social-float a { background:#00adb5; color:#fff; padding:10px 12px; border-radius:50%; text-align:center; font-size:1.2rem; transition:0.3s; }
+  .social-float a:hover { transform:scale(1.2); background:#007a80; }
+
+  /* ANIMATION */
+  @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+  /* MOBILE */
+  @media(max-width:768px){
+    .menu-btn{display:block;}
+    nav{display:none; position:absolute; top:70px; right:20px; flex-direction:column; background:#111; padding:15px; border-radius:10px; width:200px; gap:15px;}
+    nav.show{display:flex; animation:fadeIn 0.4s;}
+  }
+</style>
+</head>
+<body>
+
+<!-- FLOATING SOCIAL -->
+<div class="social-float">
+  <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+  <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+  <a href="mailto:yourname@gmail.com"><i class="fas fa-envelope"></i></a>
+</div>
+
+<!-- Navbar -->
+<header>
+  <div class="nav-left">
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="logo">Arshath</div>
+  </div>
+  <nav id="nav">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="toggle-btn" onclick="toggleMode()">🌙</button>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <h2>Hello, I'm Arshath 😎</h2>
+    <p>Aspiring Full Stack Developer | CSE Student</p>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="about">
+  <h2>About Me</h2>
+  <p>I am a passionate Computer Science student learning Full Stack Development. I build clean, responsive, and user-friendly websites with modern designs.</p>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="skills">
+    <span><i class="fab fa-html5"></i>HTML</span>
+    <span><i class="fab fa-css3-alt"></i>CSS</span>
+    <span><i class="fab fa-js-square"></i>JavaScript</span>
+    <span><i class="fab fa-react"></i>React</span>
+    <span><i class="fab fa-node"></i>Node.js</span>
+    <span><i class="fas fa-database"></i>MongoDB</span>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects-container">
+    <div class="card"><h3><i class="fas fa-laptop-code"></i>Portfolio Website</h3><p>A modern responsive portfolio built with HTML, CSS & JS.</p></div>
+    <div class="card"><h3><i class="fas fa-check-circle"></i>Todo App</h3><p>An interactive todo app built using JavaScript.</p></div>
+    <div class="card"><h3><i class="fas fa-cloud-sun"></i>Weather App</h3><p>Live weather app using API integration for real-time updates.</p></div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact">
+  <h2>Contact Me</h2>
+  <p>📧 Email: yourname@gmail.com</p>
+  <p>💼 LinkedIn: linkedin.com/in/yourprofile</p>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 Arshath | All Rights Reserved</p>
+</footer>
+
+<!-- JS -->
+<script>
+  // Dark Mode
+  function toggleMode(){document.body.classList.toggle("dark");}
+
+  // Hamburger Menu
+  function toggleMenu(){document.getElementById("nav").classList.toggle("show");}
+
+  // Scroll reveal animation
+  const sections = document.querySelectorAll('section');
+  window.addEventListener('scroll', () => {
+    sections.forEach(sec => {
+      const top = sec.getBoundingClientRect().top;
+      const height = window.innerHeight / 1.2;
+      if(top < height){ sec.classList.add('show'); }
+    });
+  });
+</script>
+</body>
+</html>
