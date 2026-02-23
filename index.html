@@ -1,176 +1,538 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arshath Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<title>Arsh | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <style>
-  /* RESET */
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; scroll-behavior: smooth; }
-  body { background:#f5f6fa; color:#333; transition:0.3s; }
-  body.dark { background:#1e1e2f; color:#f5f6fa; }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-  /* ===== NAVBAR ===== */
-  header {
-    position: sticky; top:0; z-index:1000;
-    display:flex; justify-content:space-between; align-items:center;
-    padding:15px 40px; backdrop-filter:blur(10px);
-    background:rgba(17,17,17,0.9); border-bottom:1px solid rgba(255,255,255,0.1);
+  :root {
+    --teal: #00adb5;
+    --teal-dark: #007a80;
+    --teal-light: #e0f7f8;
+    --bg: #f0f2f5;
+    --text: #2d2d2d;
+    --text-muted: #666;
+    --pill-bg: #e2e5ea;
+    --pill-text: #2d2d2d;
+    --card-bg: #ffffff;
+    --shadow: 0 8px 30px rgba(0,0,0,0.08);
+    --radius: 20px;
   }
-  .nav-left { display:flex; align-items:center; gap:15px; }
-  .menu-btn { font-size:1.6rem; background:none; border:none; color:#fff; cursor:pointer; display:none; }
-  .logo { font-size:1.6rem; font-weight:700; color:#00adb5; }
-  nav { display:flex; gap:25px; }
-  nav a { color:#fff; text-decoration:none; font-weight:500; position:relative; transition:0.3s; }
+  body.dark {
+    --bg: #141420;
+    --text: #e8e8f0;
+    --text-muted: #999;
+    --pill-bg: #2a2a3d;
+    --pill-text: #e0e0f0;
+    --card-bg: #252535;
+    --shadow: 0 8px 30px rgba(0,0,0,0.3);
+    --teal-light: #1a3d40;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family:'Poppins',sans-serif; background:var(--bg); color:var(--text); transition:background 0.35s,color 0.35s; }
+
+  /* NAVBAR */
+  header {
+    position:sticky; top:0; z-index:1000;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 40px;
+    background:rgba(17,17,17,0.93);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.07);
+  }
+  .nav-left { display:flex; align-items:center; gap:14px; }
+  .logo { font-size:1.55rem; font-weight:800; color:#00adb5; letter-spacing:-0.5px; }
+  .menu-btn { display:none; background:none; border:none; color:#fff; font-size:1.6rem; cursor:pointer; }
+  nav { display:flex; gap:28px; }
+  nav a { color:#fff; text-decoration:none; font-size:0.92rem; font-weight:500; position:relative; transition:color 0.2s; }
   nav a::after { content:""; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:#00adb5; transition:width 0.3s; }
+  nav a:hover { color:#00adb5; }
   nav a:hover::after { width:100%; }
-  .toggle-btn { background:#00adb5; border:none; color:#fff; padding:7px 15px; border-radius:6px; cursor:pointer; font-size:0.9rem; transition:0.3s; }
-  .toggle-btn:hover { background:#007a80; }
+  .theme-btn { background:#00adb5; border:none; color:#fff; padding:7px 16px; border-radius:8px; cursor:pointer; font-size:0.88rem; font-weight:600; transition:background 0.2s; font-family:inherit; }
+  .theme-btn:hover { background:#007a80; }
 
   /* HERO */
-  .hero { text-align:center; padding:140px 20px; position:relative; background: linear-gradient(135deg, #00adb5, #393e46); color:white; overflow:hidden; }
-  .hero::before { content:""; position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.05); }
-  .hero-content { position:relative; z-index:2; display:inline-block; padding:50px 70px; border-radius:20px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); animation:fadeIn 2s ease; }
-  .hero h2 { font-size:3rem; margin-bottom:15px; letter-spacing:1px; }
-  .hero p { font-size:1.2rem; }
+  .hero {
+    min-height:92vh; display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:60px 20px;
+    background:linear-gradient(135deg,#00adb5 0%,#393e46 60%,#222831 100%);
+    position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(ellipse at 30% 60%,rgba(0,173,181,0.25) 0%,transparent 60%),
+               radial-gradient(ellipse at 80% 20%,rgba(255,255,255,0.05) 0%,transparent 50%);
+  }
+  .hero-inner {
+    position:relative; z-index:2;
+    background:rgba(255,255,255,0.08); backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.15); border-radius:24px;
+    padding:60px 80px; animation:heroIn 1s ease both;
+  }
+  .hero-inner h1 { font-size:3.2rem; font-weight:800; color:#fff; letter-spacing:-1px; margin-bottom:14px; }
+  .hero-inner h1 span { color:#00adb5; }
+  .hero-inner p { font-size:1.15rem; color:rgba(255,255,255,0.8); }
+  .hero-btns { margin-top:32px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn-primary { background:#00adb5; color:#fff; padding:12px 28px; border-radius:10px; text-decoration:none; font-weight:600; transition:background 0.2s,transform 0.2s; }
+  .btn-primary:hover { background:#007a80; transform:translateY(-2px); }
+  .btn-outline { border:2px solid rgba(255,255,255,0.5); color:#fff; padding:11px 28px; border-radius:10px; text-decoration:none; font-weight:600; transition:border-color 0.2s,background 0.2s; }
+  .btn-outline:hover { border-color:#00adb5; background:rgba(0,173,181,0.15); }
+
+  /* FLOATING SOCIAL */
+  .social-float { position:fixed; left:18px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:12px; z-index:999; }
+  .social-float a {
+    width:44px; height:44px; background:#00adb5; color:#fff; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:1.1rem;
+    text-decoration:none; box-shadow:0 4px 18px rgba(0,173,181,0.45);
+    transition:transform 0.25s,background 0.25s;
+  }
+  .social-float a:hover { transform:scale(1.2) translateX(4px); background:#007a80; }
 
   /* SECTIONS */
-  section { padding:80px 20px; max-width:1100px; margin:auto; opacity:0; transform:translateY(30px); transition:1s; }
+  section { padding:90px 20px; max-width:1100px; margin:auto; opacity:0; transform:translateY(28px); transition:opacity 0.7s,transform 0.7s; }
   section.show { opacity:1; transform:translateY(0); }
-  h2 { text-align:center; margin-bottom:40px; color:#00adb5; font-size:2.2rem; }
+  .section-title { text-align:center; font-size:2.4rem; font-weight:800; color:#00adb5; margin-bottom:50px; letter-spacing:-0.5px; }
 
   /* ABOUT */
-  .about p { text-align:center; max-width:750px; margin:auto; line-height:1.8; font-size:1.1rem; }
+  .about-text { text-align:center; max-width:700px; margin:0 auto; font-size:1.08rem; line-height:1.9; color:var(--text-muted); }
 
   /* SKILLS */
-  .skills { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; }
-  .skills span { display:flex; align-items:center; gap:8px; background:#eee; padding:12px 22px; border-radius:25px; font-weight:600; transition:0.3s; }
-  .skills span:hover { background:#00adb5; color:#fff; transform:scale(1.1); }
-  body.dark .skills span { background:#333; }
+  .skills-wrapper { max-width:680px; margin:0 auto; display:flex; flex-direction:column; gap:40px; }
+  .skill-group { display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .skill-level { font-size:1.25rem; font-weight:700; color:#00adb5; }
+  .skill-pills { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  .skill-pills span {
+    display:flex; align-items:center; gap:9px;
+    background:var(--pill-bg); color:var(--pill-text);
+    padding:11px 22px; border-radius:50px;
+    font-size:0.95rem; font-weight:600; cursor:default;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    transition:background 0.22s,color 0.22s,transform 0.22s,box-shadow 0.22s;
+  }
+  .skill-pills span i { font-size:1rem; color:#555; transition:color 0.22s; }
+  body.dark .skill-pills span i { color:#aaa; }
+  .skill-pills span:hover { background:#00adb5; color:#fff; transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,173,181,0.35); }
+  .skill-pills span:hover i { color:#fff; }
 
   /* PROJECTS */
-  .projects-container { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:25px; }
-  .card { background:rgba(255,255,255,0.9); border-radius:20px; padding:25px; box-shadow:0 10px 30px rgba(0,0,0,0.1); transition:transform 0.3s, box-shadow 0.3s; cursor:pointer; }
-  .card:hover { transform:translateY(-15px) scale(1.05); box-shadow:0 15px 35px rgba(0,0,0,0.2); }
-  body.dark .card { background: #2c2c3c; }
-  .card h3 { margin-bottom:15px; color:#393e46; }
-  .card p { font-size:0.95rem; }
-  .card i { margin-right:8px; color:#00adb5; }
+  .project-group { margin-bottom:55px; }
+  .group-label {
+    text-align:center; font-size:0.88rem; font-weight:700;
+    letter-spacing:2px; text-transform:uppercase; color:#00adb5;
+    margin-bottom:28px; display:flex; align-items:center; gap:14px; justify-content:center;
+  }
+  .group-label::before, .group-label::after { content:""; flex:1; max-width:90px; height:1px; background:#00adb5; opacity:0.3; }
+  .cards-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:24px; }
+  .card {
+    background:var(--card-bg); border-radius:var(--radius); padding:26px;
+    box-shadow:var(--shadow); display:flex; flex-direction:column;
+    border:1px solid rgba(0,173,181,0.07);
+    transition:transform 0.3s,box-shadow 0.3s;
+  }
+  .card:hover { transform:translateY(-8px) scale(1.02); box-shadow:0 20px 45px rgba(0,0,0,0.13); }
+  .card-badge {
+    display:inline-block; font-size:0.7rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:1px; padding:3px 12px; border-radius:20px;
+    background:var(--teal-light); color:#007a80; margin-bottom:13px; width:fit-content;
+  }
+  body.dark .card-badge { color:#00c9d4; }
+  .card h3 { font-size:1rem; color:var(--text); margin-bottom:9px; font-weight:600; }
+  .card h3 i { color:#00adb5; margin-right:8px; }
+  .card p { font-size:0.9rem; color:var(--text-muted); line-height:1.7; flex:1; }
+  .view-btn {
+    margin-top:18px; padding:10px 0; border:none; border-radius:10px;
+    background:#00adb5; color:#fff; font-weight:600; font-size:0.87rem;
+    cursor:pointer; font-family:inherit; width:100%;
+    transition:background 0.2s,transform 0.15s;
+  }
+  .view-btn:hover { background:#007a80; transform:scale(1.02); }
+  .single-wrap { display:flex; justify-content:center; }
+  .single-wrap .card { max-width:320px; width:100%; }
+
+  /* EDUCATION */
+  .edu-card {
+    background:var(--card-bg); border-radius:var(--radius); padding:36px;
+    max-width:620px; margin:0 auto; box-shadow:var(--shadow);
+    text-align:center; border-left:4px solid #00adb5;
+  }
+  .edu-card h3 { font-size:1.15rem; font-weight:700; color:var(--text); margin-bottom:10px; }
+  .edu-card p { font-size:0.97rem; color:var(--text-muted); line-height:1.8; }
+  .edu-focus { color:#00adb5; font-weight:600; }
 
   /* CONTACT */
-  .contact p { text-align:center; font-size:1.1rem; margin:10px 0; }
+  .contact-wrap { display:flex; flex-wrap:wrap; gap:16px; justify-content:center; max-width:560px; margin:0 auto; }
+  .contact-item {
+    display:flex; align-items:center; gap:12px;
+    background:var(--card-bg); padding:14px 24px; border-radius:14px;
+    box-shadow:var(--shadow); text-decoration:none; color:var(--text);
+    font-weight:500; font-size:0.95rem; border:1px solid rgba(0,173,181,0.1);
+    transition:transform 0.2s,box-shadow 0.2s,color 0.2s;
+  }
+  .contact-item i { color:#00adb5; font-size:1.2rem; }
+  .contact-item:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,0.12); color:#00adb5; }
 
   /* FOOTER */
-  footer { text-align:center; background:#111; color:white; padding:20px; margin-top:50px; }
+  footer { text-align:center; background:#111; color:#888; padding:22px; font-size:0.88rem; margin-top:40px; }
+  footer span { color:#00adb5; }
 
-  /* FLOATING SOCIAL BUTTONS */
-  .social-float { position:fixed; left:20px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:15px; z-index:1000; }
-  .social-float a { background:#00adb5; color:#fff; padding:10px 12px; border-radius:50%; text-align:center; font-size:1.2rem; transition:0.3s; }
-  .social-float a:hover { transform:scale(1.2); background:#007a80; }
+  /* MODAL */
+  .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:3000; justify-content:center; align-items:center; opacity:0; transition:opacity 0.25s; }
+  .modal.show { display:flex; opacity:1; }
+  .modal-box {
+    background:var(--card-bg); border-radius:var(--radius); padding:38px;
+    max-width:470px; width:92%; position:relative;
+    transform:translateY(-20px); transition:transform 0.25s;
+    box-shadow:0 24px 60px rgba(0,0,0,0.22);
+  }
+  .modal.show .modal-box { transform:translateY(0); }
+  .modal-box h3 { color:#00adb5; font-size:1.15rem; margin-bottom:10px; }
+  .modal-badge {
+    display:inline-block; font-size:0.73rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:1px; padding:4px 12px; border-radius:20px;
+    background:var(--teal-light); color:#007a80; margin-bottom:16px;
+  }
+  body.dark .modal-badge { color:#00c9d4; }
+  .modal-box p { font-size:0.95rem; line-height:1.8; color:var(--text-muted); }
+  .modal-close { position:absolute; top:14px; right:18px; font-size:1.5rem; background:none; border:none; cursor:pointer; color:#aaa; transition:color 0.2s; }
+  .modal-close:hover { color:#00adb5; }
 
-  /* ANIMATION */
-  @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+  /* PROJECT COUNTER */
+  .project-count { text-align:center; margin-bottom:40px; font-size:0.9rem; color:var(--text-muted); }
+  .project-count strong { color:#00adb5; }
+
+  @keyframes heroIn { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
 
   /* MOBILE */
   @media(max-width:768px){
-    .menu-btn{display:block;}
-    nav{display:none; position:absolute; top:70px; right:20px; flex-direction:column; background:#111; padding:15px; border-radius:10px; width:200px; gap:15px;}
-    nav.show{display:flex; animation:fadeIn 0.4s;}
+    .menu-btn { display:block; }
+    nav { display:none; position:absolute; top:66px; right:16px; flex-direction:column; background:#111; padding:18px; border-radius:14px; gap:16px; width:180px; }
+    nav.open { display:flex; }
+    header { padding:14px 18px; }
+    .hero-inner { padding:36px 22px; }
+    .hero-inner h1 { font-size:2rem; }
+    .social-float { left:8px; }
+    .social-float a { width:36px; height:36px; font-size:0.95rem; }
+    section { padding:70px 16px; }
+    .section-title { font-size:1.9rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- FLOATING SOCIAL -->
+<!-- Floating Social -->
 <div class="social-float">
-  <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-  <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-  <a href="mailto:yourname@gmail.com"><i class="fas fa-envelope"></i></a>
+  <a href="https://www.linkedin.com/in/arshath-ahamed-m-0619b3342/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+  <a href="https://github.com/arshathrafi477" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+  <a href="mailto:arshathrafi477@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
 </div>
 
 <!-- Navbar -->
 <header>
   <div class="nav-left">
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <button class="menu-btn" id="menuBtn">☰</button>
     <div class="logo">Arshath</div>
   </div>
   <nav id="nav">
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
     <a href="#contact">Contact</a>
   </nav>
-  <button class="toggle-btn" onclick="toggleMode()">🌙</button>
+  <button class="theme-btn" id="themeBtn">🌙</button>
 </header>
 
 <!-- Hero -->
-<section class="hero">
-  <div class="hero-content">
-    <h2>Hello, I'm Arshath 😎</h2>
-    <p>Aspiring Full Stack Developer | CSE Student</p>
+<div class="hero">
+  <div class="hero-inner">
+    <h1>Hello, I'm <span>Arsh</span> </h1>
+    <p>Aspiring Full Stack Developer &nbsp;·&nbsp; CSE Student</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-outline">Contact Me</a>
+    </div>
   </div>
-</section>
+</div>
 
 <!-- About -->
-<section id="about" class="about">
-  <h2>About Me</h2>
-  <p>I am a passionate Computer Science student learning Full Stack Development. I build clean, responsive, and user-friendly websites with modern designs.</p>
+<section id="about">
+  <h2 class="section-title">About Me</h2>
+  <p class="about-text">
+    I am a passionate Computer Science student learning Full Stack Development.
+    I build clean, responsive, and user-friendly websites with modern designs —
+    always eager to explore new technologies and turn ideas into real-world projects.
+  </p>
 </section>
 
 <!-- Skills -->
 <section id="skills">
-  <h2>Skills</h2>
-  <div class="skills">
-    <span><i class="fab fa-html5"></i>HTML</span>
-    <span><i class="fab fa-css3-alt"></i>CSS</span>
-    <span><i class="fab fa-js-square"></i>JavaScript</span>
-    <span><i class="fab fa-react"></i>React</span>
-    <span><i class="fab fa-node"></i>Node.js</span>
-    <span><i class="fas fa-database"></i>MongoDB</span>
+  <h2 class="section-title">Skills</h2>
+  <div class="skills-wrapper">
+
+    <div class="skill-group">
+      <div class="skill-level">Advanced</div>
+      <div class="skill-pills">
+        <span><i class="fab fa-html5"></i> HTML</span>
+        <span><i class="fab fa-css3-alt"></i> CSS</span>
+        <span><i class="fas fa-code"></i> Tailwind CSS</span>
+        <span><i class="fab fa-js-square"></i> JavaScript</span>
+        <span><i class="fas fa-database"></i> SQL</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-level">Intermediate</div>
+      <div class="skill-pills">
+        <span><i class="fab fa-python"></i> Python</span>
+        <span><i class="fas fa-desktop"></i> Tkinter</span>
+        <span><i class="fas fa-terminal"></i> C</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-level">Beginner</div>
+      <div class="skill-pills">
+        <span><i class="fas fa-mobile-alt"></i> Flutter Dart</span>
+        <span><i class="fas fa-flask"></i> Flask</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- Projects -->
+<!-- Projects — 10 total -->
 <section id="projects">
-  <h2>Projects</h2>
-  <div class="projects-container">
-    <div class="card"><h3><i class="fas fa-laptop-code"></i>Portfolio Website</h3><p>A modern responsive portfolio built with HTML, CSS & JS.</p></div>
-    <div class="card"><h3><i class="fas fa-check-circle"></i>Todo App</h3><p>An interactive todo app built using JavaScript.</p></div>
-    <div class="card"><h3><i class="fas fa-cloud-sun"></i>Weather App</h3><p>Live weather app using API integration for real-time updates.</p></div>
+  <h2 class="section-title">Projects</h2>
+  <p class="project-count"><strong>10 Projects</strong> &nbsp;·&nbsp; 5 Websites &nbsp;·&nbsp; 4 Desktop Apps &nbsp;·&nbsp; 1 Mobile App</p>
+
+  <!-- 5 WEBSITES -->
+  <div class="project-group">
+    <div class="group-label"><i class="fas fa-globe"></i> Websites</div>
+    <div class="cards-grid">
+
+      <div class="card">
+        <span class="card-badge">HTML · CSS · JS</span>
+        <h3><i class="fas fa-calculator"></i>CGPA Calculator</h3>
+        <p>Semester-wise CGPA &amp; SGPA calculator with a clean, intuitive interface.</p>
+        <button class="view-btn"
+          data-title="CGPA Calculator (Web)"
+          data-tech="HTML · CSS · JS"
+          data-desc="Calculates semester GPA and cumulative CGPA based on grades and credits. Supports multiple semesters, instant calculation, and a clean responsive UI optimized for students.">
+          View Details
+        </button>
+      </div>
+
+      <div class="card">
+        <span class="card-badge">HTML · CSS · JS</span>
+        <h3><i class="fas fa-code"></i>Online Compiler</h3>
+        <p>Write, compile, and run code for multiple languages in the browser.</p>
+        <button class="view-btn"
+          data-title="Online Compiler"
+          data-tech="HTML · CSS · JS"
+          data-desc="A browser-based code editor that supports multiple programming languages with a smooth editing experience, syntax highlighting, and instant code output — built entirely with frontend technologies.">
+          View Details
+        </button>
+      </div>
+
+      <div class="card">
+        <span class="card-badge">HTML · CSS · JS · API</span>
+        <h3><i class="fas fa-cloud-sun"></i>Weather App</h3>
+        <p>Real-time weather updates for any city using a live public API.</p>
+        <button class="view-btn"
+          data-title="Weather App"
+          data-tech="HTML · CSS · JS · Open Weather API"
+          data-desc="Fetches live weather data including temperature, humidity, wind speed, and conditions for any city in the world using a public weather API. Features a clean card layout and dynamic weather icons.">
+          View Details
+        </button>
+      </div>
+
+      <div class="card">
+        <span class="card-badge">HTML · CSS · JS</span>
+        <h3><i class="fas fa-qrcode"></i>QR Code Generator</h3>
+        <p>Instantly generate and download QR codes for any URL or text.</p>
+        <button class="view-btn"
+          data-title="QR Code Generator"
+          data-tech="HTML · CSS · JS"
+          data-desc="A lightweight tool to instantly generate QR codes for any URL or text input. Users can preview the QR code live and download it as a PNG image — no backend needed.">
+          View Details
+        </button>
+      </div>
+
+      <div class="card">
+        <span class="card-badge">HTML · CSS · JS · Flask</span>
+        <h3><i class="fas fa-user-graduate"></i>Student Login System</h3>
+        <p>Secure web login with Flask authentication and student dashboard.</p>
+        <button class="view-btn"
+          data-title="Student Login System (Web)"
+          data-tech="HTML · CSS · JS "
+          data-desc="A full web-based student login system with secure authentication, session management, and a demo student dashboard. Built with a Flask backend handling login logic and data storage.">
+          View Details
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4 DESKTOP SOFTWARE -->
+  <div class="project-group">
+    <div class="group-label"><i class="fas fa-laptop-code"></i> Desktop Software</div>
+    <div class="cards-grid">
+
+      <div class="card">
+        <span class="card-badge">Python · Tkinter</span>
+        <h3><i class="fas fa-hotel"></i>Hotel Billing Software</h3>
+        <p>Manage hotel orders, billing, and printable invoice generation.</p>
+        <button class="view-btn"
+          data-title="Hotel Billing Software"
+          data-tech="Python · Tkinter"
+          data-desc="A desktop GUI application for hotel management. Features include order entry, item selection from a menu, automatic bill calculation, and printable invoice generation — all within a Tkinter interface.">
+          View Details
+        </button>
+      </div>
+
+      <div class="card">
+        <span class="card-badge">Python · Tkinter</span>
+        <h3><i class="fas fa-user"></i>Student Login (Desktop)</h3>
+        <p>Secure desktop login system with credential validation and dashboard.</p>
+        <button class="view-btn"
+          data-title="Student Login (Desktop)"
+          data-tech="Python · Tkinter"
+          data-desc="A desktop application built with Tkinter that provides secure student login with credential validation. After login, students are taken to a personalized dashboard with their profile and data.">
+          View Details
+        </button>
+      </div>
+
+      <div class="card">
+        <span class="card-badge">Python · Tkinter</span>
+        <h3><i class="fas fa-mobile-alt"></i>Emax Mobile Shop Billing</h3>
+        <p>Billing and inventory management system for a mobile phone shop.</p>
+        <button class="view-btn"
+          data-title="Emax Mobile Shop – Billing Software"
+          data-tech="Python · Tkinter"
+          data-desc="A desktop billing and inventory management system designed for a mobile phone shop. Tracks stock, records customer purchases, generates bills, and manages product inventory — all from a Tkinter GUI.">
+          View Details
+        </button>
+      </div>
+
+      <div class="card">
+        <span class="card-badge">Python · Tkinter · Flask</span>
+        <h3><i class="fas fa-clipboard-list"></i>Attendance Software</h3>
+        <p>Desktop attendance manager synced in real-time to a Flask web backend.</p>
+        <button class="view-btn"
+          data-title="Attendance Software (Tkinter + Flask)"
+          data-tech="Python · Tkinter · Flask"
+          data-desc="A hybrid attendance management system where the Tkinter desktop app is used to mark and manage attendance, which is then synced in real-time to a Flask web backend — allowing data to be accessed from anywhere.">
+          View Details
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 1 MOBILE APP -->
+  <div class="project-group">
+    <div class="group-label"><i class="fas fa-mobile-alt"></i> Mobile App</div>
+    <div class="single-wrap">
+      <div class="card">
+        <span class="card-badge">Flutter · Dart</span>
+        <h3><i class="fas fa-calculator"></i>CGPA Calculator (Mobile)</h3>
+        <p>Cross-platform Flutter app for CGPA calculation with full offline support.</p>
+        <button class="view-btn"
+          data-title="CGPA Calculator (Mobile)"
+          data-tech="Flutter · Dart"
+          data-desc="A cross-platform mobile application built with Flutter for calculating CGPA offline. Supports multiple semesters, grade input by subject, and instant CGPA/SGPA results — works on both Android and iOS with a responsive design.">
+          View Details
+        </button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Education -->
+<section id="education">
+  <h2 class="section-title">Education</h2>
+  <div class="edu-card">
+    <h3>B.E Computer Science Engineering — 2nd Year</h3>
+    <p>
+      <span class="edu-focus">Focus Areas:</span><br>
+      Data Structures &nbsp;·&nbsp; Web Development &nbsp;·&nbsp; Operating Systems &nbsp;·&nbsp; Networks
+    </p>
   </div>
 </section>
 
 <!-- Contact -->
-<section id="contact" class="contact">
-  <h2>Contact Me</h2>
-  <p>📧 Email: yourname@gmail.com</p>
-  <p>💼 LinkedIn: linkedin.com/in/yourprofile</p>
+<section id="contact">
+  <h2 class="section-title">Contact Me</h2>
+  <div class="contact-wrap">
+    <a href="mailto:arshathrafi477@gmail.com" class="contact-item">
+      <i class="fas fa-envelope"></i> arshathrafi477@gmail.com
+    </a>
+    <a href="https://www.linkedin.com/in/arshath-ahamed-m-0619b3342/" target="_blank" class="contact-item">
+      <i class="fab fa-linkedin-in"></i> LinkedIn
+    </a>
+    <a href="https://github.com/arshathrafi477" target="_blank" class="contact-item">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+  </div>
 </section>
 
-<!-- Footer -->
 <footer>
-  <p>© 2025 Arshath | All Rights Reserved</p>
+  <p>&copy; 2025 <span>Arshath Ahamed M</span> &nbsp;·&nbsp; All Rights Reserved</p>
 </footer>
 
-<!-- JS -->
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <h3 id="modalTitle"></h3>
+    <div class="modal-badge" id="modalTech"></div>
+    <p id="modalDesc"></p>
+  </div>
+</div>
+
 <script>
-  // Dark Mode
-  function toggleMode(){document.body.classList.toggle("dark");}
+  // Theme
+  const themeBtn = document.getElementById('themeBtn');
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    themeBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+  });
 
-  // Hamburger Menu
-  function toggleMenu(){document.getElementById("nav").classList.toggle("show");}
+  // Hamburger
+  const menuBtn = document.getElementById('menuBtn');
+  const navEl   = document.getElementById('nav');
+  menuBtn.addEventListener('click', () => navEl.classList.toggle('open'));
+  navEl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navEl.classList.remove('open')));
+  document.addEventListener('click', e => {
+    if (navEl.classList.contains('open') && !navEl.contains(e.target) && e.target !== menuBtn)
+      navEl.classList.remove('open');
+  });
 
-  // Scroll reveal animation
-  const sections = document.querySelectorAll('section');
-  window.addEventListener('scroll', () => {
-    sections.forEach(sec => {
-      const top = sec.getBoundingClientRect().top;
-      const height = window.innerHeight / 1.2;
-      if(top < height){ sec.classList.add('show'); }
+  // Modal
+  const modal = document.getElementById('modal');
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('modalTitle').textContent = btn.dataset.title;
+      document.getElementById('modalTech').textContent  = btn.dataset.tech;
+      document.getElementById('modalDesc').textContent  = btn.dataset.desc;
+      modal.classList.add('show');
     });
   });
+  document.getElementById('modalClose').addEventListener('click', () => modal.classList.remove('show'));
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('show'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('show'); });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('section').forEach(s => obs.observe(s));
 </script>
 </body>
 </html>
